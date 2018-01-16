@@ -137,6 +137,20 @@
     return undefined;
   }
 
+  library.every = function(input, func) {
+    if (input instanceof Object && func instanceof Function) {
+      var result;
+      for (var key in input) {
+        result = func(input[key]);
+        if (result === false) {
+          return result;
+        }
+      }
+      return result;
+    }
+    return undefined;
+  }
+
   library.filter = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var newArray = [];
@@ -146,6 +160,27 @@
         }
       });
       return newArray;
+    }
+    return undefined;
+  }
+
+  library.map = function(input, func) {
+    if (input instanceof Object && func instanceof Function) {
+      var newArray = [];
+      this.each(input, function(key, value, object) {
+        newArray.push(func(key, value, object));
+      });
+      return newArray;
+    }
+    return undefined;
+  }
+
+  library.reduce = function(input, func, accumulator) {
+    if (input instanceof Object && func instanceof Function) {
+      this.each(input, function(key, value, object) {
+        accumulator = func(accumulator, value, key);
+      });
+      return accumulator;
     }
     return undefined;
   }
