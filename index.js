@@ -80,6 +80,19 @@
     return undefined;
   }
 
+  library.flatten = function(input) {
+    if (input instanceof Array) {
+      var newArray = this.reduce(input, function(previous, current) {
+        if (current instanceof Array) {
+          current = this.flatten(current);
+        }
+        return previous.concat(current)
+      }.bind(this), []);
+      return newArray;
+    }
+    return undefined;
+  }
+
   library.remove = function(input, func) {
     if (input instanceof Array && func instanceof Function) {
       var newArray = this.filter(input, func.bind(this));
