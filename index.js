@@ -37,6 +37,35 @@
     return undefined;
   }
 
+  library.min = function(input) {
+    if (input instanceof Array) {
+      var min = Math.min.apply(this, input);
+      return min;
+    }
+    return undefined;
+  }
+
+  library.max = function(input) {
+    if (input instanceof Array) {
+      var max = Math.max.apply(this, input);
+      return max;
+    }
+    return undefined;
+  }
+
+  library.uniq = function(input) {
+    if (input instanceof Array) {
+      var newArray =  [];
+      for (var i = 0; i < input.length; i += 1) {
+        if (newArray.indexOf(input[i]) === -1) {
+          newArray.push(input[i]);
+        }
+      }
+      return newArray;
+    }
+    return undefined;
+  }
+
   library.chunk = function(input, chunkSize) {
     if (input instanceof Array) {
       var newArray =  [];
