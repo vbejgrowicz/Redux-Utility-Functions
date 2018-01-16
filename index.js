@@ -139,6 +139,40 @@
     return undefined;
   }
 
+  library.merge = function(inputOne, inputTwo) {
+    if (inputOne instanceof Object && inputTwo instanceof Object) {
+      var mergedObject = inputOne;
+      for (var key in inputTwo) {
+        mergedObject[key] = inputTwo[key]
+      }
+      return mergedObject;
+    }
+    return undefined;
+  }
+
+  library.mapKeys = function(input, func) {
+    if (input instanceof Object && func instanceof Function) {
+      var newObject = {};
+      this.each(input, function(key, value, object) {
+        var newKey = func(key, value, object);
+        newObject[newKey] = value;
+      });
+      return newObject;
+    }
+    return undefined;
+  }
+
+  library.mapValues = function(input, func) {
+    if (input instanceof Object && func instanceof Function) {
+      var newObject = {};
+      this.each(input, function(key, value, object) {
+        var newValue = func(key, value, object);
+        newObject[key] = newValue;
+      });
+      return newObject;
+    }
+    return undefined;
+  }
   // Object/Array Functions
   library.each = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
