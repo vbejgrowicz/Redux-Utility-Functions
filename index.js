@@ -87,6 +87,45 @@
     }
     return undefined;
   }
+
+  // Object Functions
+  library.keys = function(input) {
+    if (input instanceof Object) {
+      var newArray = [];
+      this.each(input, function(key, value){
+        newArray.push(key);
+      });
+      return newArray;
+    }
+    return undefined;
+  }
+
+  library.values = function(input) {
+    if (input instanceof Object) {
+      var newArray = [];
+      this.each(input, function(key, value){
+        newArray.push(value);
+      });
+      return newArray;
+    }
+    return undefined;
+  }
+
+  library.findKey = function(input, func) {
+    if (input instanceof Object && func instanceof Function) {
+      var foundKey;
+      for (key in input) {
+        result = func(input[key]);
+        if (result === true) {
+          foundKey = key;
+          return foundKey;
+        }
+      }
+      return foundKey;
+    }
+    return undefined;
+  }
+
   // Object/Array Functions
   library.each = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
