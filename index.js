@@ -173,6 +173,35 @@
     }
     return undefined;
   }
+
+  library.pick = function(input, omitedKey) {
+    if (input instanceof Object) {
+      var newObject = {};
+      this.each(input, function(key, value, object) {
+        if (omitedKey.indexOf(key) === -1) {
+        } else {
+          newObject[key] = value;
+        }
+      });
+      return newObject;
+    }
+    return undefined;
+  }
+
+  library.omit = function(input, omitedKey) {
+    if (input instanceof Object) {
+      var newObject = {};
+      this.each(input, function(key, value, object) {
+        if (omitedKey.indexOf(key) !== -1) {
+        } else {
+          newObject[key] = value;
+        }
+      });
+      return newObject;
+    }
+    return undefined;
+  }
+
   // Object/Array Functions
   library.each = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
