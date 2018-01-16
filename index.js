@@ -5,7 +5,7 @@
   library.compact = function(input) {
     if (input instanceof Array) {
       var newArray = [];
-      newArray = this.filter(input, function(item){
+      newArray = this.filter(input, function(item) {
         return item
       });
       return newArray;
@@ -92,7 +92,7 @@
   library.keys = function(input) {
     if (input instanceof Object) {
       var newArray = [];
-      this.each(input, function(key, value){
+      this.each(input, function(key, value, object) {
         newArray.push(key);
       });
       return newArray;
@@ -103,7 +103,7 @@
   library.values = function(input) {
     if (input instanceof Object) {
       var newArray = [];
-      this.each(input, function(key, value){
+      this.each(input, function(key, value, object) {
         newArray.push(value);
       });
       return newArray;
@@ -114,7 +114,7 @@
   library.findKey = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var foundKey;
-      for (key in input) {
+      for (var key in input) {
         result = func(input[key]);
         if (result === true) {
           foundKey = key;
@@ -129,8 +129,8 @@
   // Object/Array Functions
   library.each = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
-      for (key in input) {
-        func(key, input[key]);
+      for (var key in input) {
+        func(key, input[key], input);
       }
       return input;
     }
@@ -140,7 +140,7 @@
   library.filter = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var newArray = [];
-      this.each(input, function(key, value){
+      this.each(input, function(key, value, object) {
         if (func(input[key])) {
           newArray.push(input[key])
         }
