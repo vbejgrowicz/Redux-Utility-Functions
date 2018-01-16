@@ -38,7 +38,7 @@
   }
 
   library.min = function(input) {
-    if (input instanceof Array) {
+    if (input instanceof Array && input.length > 0) {
       var min = Math.min.apply(this, input);
       return min;
     }
@@ -46,7 +46,7 @@
   }
 
   library.max = function(input) {
-    if (input instanceof Array) {
+    if (input instanceof Array && input.length > 0) {
       var max = Math.max.apply(this, input);
       return max;
     }
