@@ -5,7 +5,7 @@
   library.compact = function(input) {
     if (input instanceof Array) {
       var newArray = [];
-      newArray = this.filter(input, function(item) {
+      newArray = this.filter(input, function(key, item) {
         return item
       });
       return newArray;
@@ -141,8 +141,8 @@
     if (input instanceof Object && func instanceof Function) {
       var newArray = [];
       this.each(input, function(key, value, object) {
-        if (func(input[key])) {
-          newArray.push(input[key])
+        if (func(key, value, object)) {
+          newArray.push(value)
         }
       });
       return newArray;
