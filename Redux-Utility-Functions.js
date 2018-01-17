@@ -151,6 +151,9 @@
         mergedObject[key] = inputTwo[key]
       }
       return mergedObject;
+    } else if ((inputOne instanceof Object && !(inputOne instanceof Array)) && inputTwo === undefined) {
+      var mergedObject = inputOne;
+      return mergedObject;
     }
     return undefined;
   }
