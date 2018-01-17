@@ -108,7 +108,7 @@
 
   // Object Functions
   reduxUtils.keys = function(input) {
-    if (input instanceof Object) {
+    if (input instanceof Object && !(input instanceof Array)) {
       var newArray = [];
       this.each(input, function(key, value, object) {
         newArray.push(key);
@@ -119,7 +119,7 @@
   }
 
   reduxUtils.values = function(input) {
-    if (input instanceof Object) {
+    if (input instanceof Object && !(input instanceof Array)) {
       var newArray = [];
       this.each(input, function(key, value, object) {
         newArray.push(value);
@@ -130,7 +130,7 @@
   }
 
   reduxUtils.findKey = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
+    if ((input instanceof Object && !(input instanceof Array)) && func instanceof Function) {
       var foundKey;
       for (var key in input) {
         var result = func(key, input[key], input);
@@ -145,7 +145,7 @@
   }
 
   reduxUtils.merge = function(inputOne, inputTwo) {
-    if (inputOne instanceof Object && inputTwo instanceof Object) {
+    if ((inputOne instanceof Object && !(inputOne instanceof Array)) && (inputTwo instanceof Object && !(inputTwo instanceof Array))) {
       var mergedObject = inputOne;
       for (var key in inputTwo) {
         mergedObject[key] = inputTwo[key]
@@ -156,7 +156,7 @@
   }
 
   reduxUtils.mapKeys = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
+    if ((input instanceof Object && !(input instanceof Array)) && func instanceof Function) {
       var newObject = {};
       this.each(input, function(key, value, object) {
         var newKey = func(key, value, object);
@@ -168,7 +168,7 @@
   }
 
   reduxUtils.mapValues = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
+    if ((input instanceof Object && !(input instanceof Array)) && func instanceof Function) {
       var newObject = {};
       this.each(input, function(key, value, object) {
         var newValue = func(key, value, object);
@@ -179,11 +179,14 @@
     return undefined;
   }
 
-  reduxUtils.pick = function(input, omitedKey) {
-    if (input instanceof Object) {
+  reduxUtils.pick = function(input, list) {
+    if (input instanceof Object && !(input instanceof Array)) {
+      if (typeof list === 'undefined') {
+        list = [];
+      }
       var newObject = {};
       this.each(input, function(key, value, object) {
-        if (omitedKey.indexOf(key) === -1) {
+        if (list.indexOf(key) === -1) {
         } else {
           newObject[key] = value;
         }
@@ -193,11 +196,14 @@
     return undefined;
   }
 
-  reduxUtils.omit = function(input, omitedKey) {
-    if (input instanceof Object) {
+  reduxUtils.omit = function(input, list) {
+    if (input instanceof Object && !(input instanceof Array)) {
+      if (typeof list === 'undefined') {
+        list = [];
+      }
       var newObject = {};
       this.each(input, function(key, value, object) {
-        if (omitedKey.indexOf(key) !== -1) {
+        if (list.indexOf(key) !== -1) {
         } else {
           newObject[key] = value;
         }
