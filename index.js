@@ -1,4 +1,4 @@
-(function(window){
+(function(){
   var library = {};
 
   // Array Functions
@@ -261,7 +261,9 @@
     return undefined;
   }
 
-  window.$l = library;
+  $l = library;
+
+  module.exports = $l;
 
   console.log('Library Loaded...');
-})(window);
+})();
