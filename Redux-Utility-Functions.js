@@ -1,8 +1,8 @@
 (function(){
-  var $r = {};
+  var reduxUtils = {};
 
   // Array Functions
-  $r.compact = function(input) {
+  reduxUtils.compact = function(input) {
     if (input instanceof Array) {
       var newArray = [];
       newArray = this.filter(input, function(key, item) {
@@ -13,7 +13,7 @@
     return undefined;
   }
 
-  $r.drop = function(input, dropNum) {
+  reduxUtils.drop = function(input, dropNum) {
     if (input instanceof Array) {
       var newArray = [];
       if (typeof dropNum === 'undefined') {
@@ -25,7 +25,7 @@
     return undefined;
   }
 
-  $r.take = function(input, takeNum) {
+  reduxUtils.take = function(input, takeNum) {
     if (input instanceof Array) {
       var newArray = [];
       if (typeof takeNum === 'undefined') {
@@ -37,7 +37,7 @@
     return undefined;
   }
 
-  $r.min = function(input) {
+  reduxUtils.min = function(input) {
     if (input instanceof Array && input.length > 0) {
       var min = Math.min.apply(this, input);
       return min;
@@ -45,7 +45,7 @@
     return undefined;
   }
 
-  $r.max = function(input) {
+  reduxUtils.max = function(input) {
     if (input instanceof Array && input.length > 0) {
       var max = Math.max.apply(this, input);
       return max;
@@ -53,7 +53,7 @@
     return undefined;
   }
 
-  $r.uniq = function(input) {
+  reduxUtils.uniq = function(input) {
     if (input instanceof Array) {
       var newArray =  [];
       for (var i = 0; i < input.length; i += 1) {
@@ -66,7 +66,7 @@
     return undefined;
   }
 
-  $r.chunk = function(input, chunkSize) {
+  reduxUtils.chunk = function(input, chunkSize) {
     if (input instanceof Array) {
       var newArray =  [];
       if (typeof chunkSize === 'undefined') {
@@ -80,7 +80,7 @@
     return undefined;
   }
 
-  $r.flatten = function(input) {
+  reduxUtils.flatten = function(input) {
     if (input instanceof Array) {
       var newArray = this.reduce(input, function(previous, current) {
         if (current instanceof Array) {
@@ -93,7 +93,7 @@
     return undefined;
   }
 
-  $r.remove = function(input, func) {
+  reduxUtils.remove = function(input, func) {
     if (input instanceof Array && func instanceof Function) {
       var newArray = this.filter(input, func.bind(this));
       return newArray;
@@ -102,7 +102,7 @@
   }
 
   // Object Functions
-  $r.keys = function(input) {
+  reduxUtils.keys = function(input) {
     if (input instanceof Object) {
       var newArray = [];
       this.each(input, function(key, value, object) {
@@ -113,7 +113,7 @@
     return undefined;
   }
 
-  $r.values = function(input) {
+  reduxUtils.values = function(input) {
     if (input instanceof Object) {
       var newArray = [];
       this.each(input, function(key, value, object) {
@@ -124,7 +124,7 @@
     return undefined;
   }
 
-  $r.findKey = function(input, func) {
+  reduxUtils.findKey = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var foundKey;
       for (var key in input) {
@@ -139,7 +139,7 @@
     return undefined;
   }
 
-  $r.merge = function(inputOne, inputTwo) {
+  reduxUtils.merge = function(inputOne, inputTwo) {
     if (inputOne instanceof Object && inputTwo instanceof Object) {
       var mergedObject = inputOne;
       for (var key in inputTwo) {
@@ -150,7 +150,7 @@
     return undefined;
   }
 
-  $r.mapKeys = function(input, func) {
+  reduxUtils.mapKeys = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var newObject = {};
       this.each(input, function(key, value, object) {
@@ -162,7 +162,7 @@
     return undefined;
   }
 
-  $r.mapValues = function(input, func) {
+  reduxUtils.mapValues = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var newObject = {};
       this.each(input, function(key, value, object) {
@@ -174,7 +174,7 @@
     return undefined;
   }
 
-  $r.pick = function(input, omitedKey) {
+  reduxUtils.pick = function(input, omitedKey) {
     if (input instanceof Object) {
       var newObject = {};
       this.each(input, function(key, value, object) {
@@ -188,7 +188,7 @@
     return undefined;
   }
 
-  $r.omit = function(input, omitedKey) {
+  reduxUtils.omit = function(input, omitedKey) {
     if (input instanceof Object) {
       var newObject = {};
       this.each(input, function(key, value, object) {
@@ -203,7 +203,7 @@
   }
 
   // Object/Array Functions
-  $r.each = function(input, func) {
+  reduxUtils.each = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       for (var key in input) {
         func(key, input[key], input);
@@ -213,7 +213,7 @@
     return undefined;
   }
 
-  $r.every = function(input, func) {
+  reduxUtils.every = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var result;
       for (var key in input) {
@@ -227,7 +227,7 @@
     return undefined;
   }
 
-  $r.filter = function(input, func) {
+  reduxUtils.filter = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var newArray = [];
       this.each(input, function(key, value, object) {
@@ -240,7 +240,7 @@
     return undefined;
   }
 
-  $r.map = function(input, func) {
+  reduxUtils.map = function(input, func) {
     if (input instanceof Object && func instanceof Function) {
       var newArray = [];
       this.each(input, function(key, value, object) {
@@ -251,7 +251,7 @@
     return undefined;
   }
 
-  $r.reduce = function(input, func, accumulator) {
+  reduxUtils.reduce = function(input, func, accumulator) {
     if (input instanceof Object && func instanceof Function) {
       this.each(input, function(key, value, object) {
         accumulator = func(accumulator, value, key);
@@ -261,7 +261,7 @@
     return undefined;
   }
 
-  module.exports = $r;
+  module.exports = reduxUtils;
 
   console.log('Redux Utility Functions Library Loaded...');
 })();
