@@ -95,7 +95,12 @@
 
   reduxUtils.remove = function(input, func) {
     if (input instanceof Array && func instanceof Function) {
-      var newArray = this.filter(input, func.bind(this));
+      var newArray = [];
+      this.each(input, function(key, value, object) {
+        if (!func(key, value, object)) {
+          newArray.push(value);
+        }
+      })
       return newArray;
     }
     return undefined;

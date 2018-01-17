@@ -118,12 +118,12 @@ describe('Array Functions Tests', function() {
     assert.deepEqual(reduxUtils.flatten([[1], [2], [3], [4], [5]]), [1, 2, 3, 4, 5]);
     done();
   });
-  it('Remove- Returns array values that are divisible by 2', function(done) {
-    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(key, val){ return val%2 === 0}), [2, 4]);
+  it('Remove- Returns array values that are not divisible by 2', function(done) {
+    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(key, val){ return val%2 === 0}), [1, 3]);
     done();
   });
-  it('Remove- Returns array of values not eq to 1', function(done) {
-    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(key, val){ return val !== 1}), [2, 3, 4]);
+  it('Remove- Returns array of values eq to 1', function(done) {
+    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(key, val){ return val !== 1}), [1]);
     done();
   });
   it('Remove- Returns empty arry if empty array argument', function(done) {
