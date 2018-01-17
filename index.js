@@ -128,7 +128,7 @@
     if (input instanceof Object && func instanceof Function) {
       var foundKey;
       for (var key in input) {
-        result = func(input[key]);
+        var result = func(key, input[key], input);
         if (result === true) {
           foundKey = key;
           return foundKey;
