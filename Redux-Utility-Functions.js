@@ -242,7 +242,7 @@
   }
 
   reduxUtils.filter = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
+    if (input instanceof Array && func instanceof Function) {
       var newArray = [];
       this.each(input, function(key, value, object) {
         if (func(key, value, object)) {
@@ -250,6 +250,14 @@
         }
       });
       return newArray;
+    } else if (input instanceof Object && func instanceof Function) {
+      var newObject = {};
+      this.each(input, function(key, value, object) {
+        if (func(key, value, object)) {
+          newObject[key] = value;
+        }
+      });
+      return newObject;
     }
     return undefined;
   }
