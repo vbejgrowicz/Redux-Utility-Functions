@@ -14,7 +14,8 @@ Redux-Utiltity-Functions is a small but feature-rich JavaScript library. It's go
   - [Flatten](#flatten)
   - [Remove](#remove)
 
-### Compact
+Compact
+----
 Creates a new array that does not include falsey values (false, null, 0, "", undefined, NaN)
 ```
 reduxUtils.compact(array)
@@ -25,7 +26,8 @@ reduxUtils.compact([1, false, 3, null, 5, undefined])
 // [1, 3, 5]
 ```
 
-### Drop
+Drop
+----
 Creates a new array with number of elements removed from beginning
 ```
 reduxUtils.drop(array, number)
@@ -42,7 +44,8 @@ reduxUtils.drop([1, 2, 3, 4, 5], 10)
 // []
 ```
 
-### Take
+Take
+----
 Creates a new array with number of elements from beginning
 ```
 reduxUtils.take(array, number)
@@ -59,7 +62,8 @@ reduxUtils.take([1, 2, 3, 4, 5], 10)
 // [1, 2, 3, 4, 5]
 ```
 
-### Min
+Min
+----
 Returns minimum value in array
 ```
 reduxUtils.min(array)
@@ -73,7 +77,8 @@ reduxUtils.min([])
 // undefined
 ```
 
-### Max
+Max
+----
 Returns maximum value in array
 ```
 reduxUtils.max(array)
@@ -87,7 +92,8 @@ reduxUtils.max([])
 // undefined
 ```
 
-### Uniq
+Uniq
+----
 Creates a new array without duplicate values
 ```
 reduxUtils.uniq(array)
@@ -101,7 +107,8 @@ reduxUtils.uniq(['a', 'c', 'c', 'a'])
 // ['a', 'c']
 ```
   
-### Chunk
+Chunk
+----
 Creates a new array of elements split into arrays with a size of number given. If not split evenly, last chunk will include remaining elements.
 ```
 reduxUtils.chunk(array, number)
@@ -114,7 +121,8 @@ reduxUtils.chunk([1, 2, 3, 4, 5], 2)
 // [[1, 2], [3, 4], [5]]
 ```
   
-### Flatten
+Flatten
+----
 Creates a new array with elements recursively flattened.
 ```
 reduxUtils.flatten(array)
@@ -127,7 +135,8 @@ reduxUtils.flatten([1, [2, [3, [4]]]])
 // [1, 2, 3, 4]
 ```
 
-### Remove
+Remove
+----
 Creates a new array of values that function returns truthy for.
 ```
 reduxUtils.remove(array, function(key, value, array))
