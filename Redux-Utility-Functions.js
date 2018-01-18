@@ -6,7 +6,7 @@
     if (input instanceof Array) {
       var newArray = [];
       newArray = this.filter(input, function(item) {
-        return item
+        return item;
       });
       return newArray;
     }
@@ -86,7 +86,7 @@
         if (value instanceof Array) {
           value = this.flatten(value);
         }
-        return acc.concat(value)
+        return acc.concat(value);
       }.bind(this), []);
       return newArray;
     }
@@ -281,7 +281,7 @@
       var newArray = [];
       this.each(input, function(value, object) {
         if (func(value, object)) {
-          newArray.push(value)
+          newArray.push(value);
         }
       });
       return newArray;
