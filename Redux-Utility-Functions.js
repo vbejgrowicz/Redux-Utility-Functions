@@ -106,6 +106,27 @@
     return undefined;
   }
 
+  reduxUtils.map = function(input, func) {
+    if (input instanceof Array && func instanceof Function) {
+      var newArray = [];
+      this.each(input, function(value, array) {
+        newArray.push(func(value));
+      });
+      return newArray;
+    }
+    return undefined;
+  }
+
+  reduxUtils.reduce = function(input, func, accumulator) {
+    if (input instanceof Array && func instanceof Function) {
+      this.each(input, function(value, array) {
+        accumulator = func(accumulator, value);
+      });
+      return accumulator;
+    }
+    return undefined;
+  }
+
   // Object Functions
   reduxUtils.keys = function(input) {
     if (input instanceof Object && !(input instanceof Array)) {
@@ -258,27 +279,6 @@
         }
       });
       return newObject;
-    }
-    return undefined;
-  }
-
-  reduxUtils.map = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
-      var newArray = [];
-      this.each(input, function(key, value, object) {
-        newArray.push(func(key, value, object));
-      });
-      return newArray;
-    }
-    return undefined;
-  }
-
-  reduxUtils.reduce = function(input, func, accumulator) {
-    if (input instanceof Object && func instanceof Function) {
-      this.each(input, function(key, value, object) {
-        accumulator = func(accumulator, key, value, object);
-      });
-      return accumulator;
     }
     return undefined;
   }
