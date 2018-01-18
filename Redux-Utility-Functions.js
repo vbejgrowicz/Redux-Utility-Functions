@@ -5,7 +5,7 @@
   reduxUtils.compact = function(input) {
     if (input instanceof Array) {
       var newArray = [];
-      newArray = this.filter(input, function(key, item) {
+      newArray = this.filter(input, function(item) {
         return item
       });
       return newArray;
@@ -82,7 +82,7 @@
 
   reduxUtils.flatten = function(input) {
     if (input instanceof Array) {
-      var newArray = this.reduce(input, function(acc, key, value) {
+      var newArray = this.reduce(input, function(acc, value) {
         if (value instanceof Array) {
           value = this.flatten(value);
         }
@@ -96,8 +96,8 @@
   reduxUtils.remove = function(input, func) {
     if (input instanceof Array && func instanceof Function) {
       var newArray = [];
-      this.each(input, function(key, value, object) {
-        if (!func(key, value, object)) {
+      this.each(input, function(value, array) {
+        if (!func(value, array)) {
           newArray.push(value);
         }
       })
@@ -239,7 +239,12 @@
 
   // Object/Array Functions
   reduxUtils.each = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
+    if (input instanceof Array && func instanceof Function) {
+      for (var key in input) {
+        func(input[key], input);
+      }
+      return input;
+    } else if (input instanceof Object && func instanceof Function) {
       for (var key in input) {
         func(key, input[key], input);
       }
@@ -249,7 +254,16 @@
   }
 
   reduxUtils.every = function(input, func) {
-    if (input instanceof Object && func instanceof Function) {
+    if (input instanceof Array && func instanceof Function) {
+      var result;
+      for (var key in input) {
+        result = func(input[key], input);
+        if (result === false) {
+          return result;
+        }
+      }
+      return result;
+    } else if (input instanceof Object && func instanceof Function) {
       var result;
       for (var key in input) {
         result = func(key, input[key], input);
@@ -265,8 +279,8 @@
   reduxUtils.filter = function(input, func) {
     if (input instanceof Array && func instanceof Function) {
       var newArray = [];
-      this.each(input, function(key, value, object) {
-        if (func(key, value, object)) {
+      this.each(input, function(value, object) {
+        if (func(value, object)) {
           newArray.push(value)
         }
       });
