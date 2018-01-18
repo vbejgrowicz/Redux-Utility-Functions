@@ -119,25 +119,41 @@ describe('Array Functions Tests', function() {
     done();
   });
   it('.remove- Returns array values that are not divisible by 2', function(done) {
-    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(key, val){ return val%2 === 0}), [1, 3]);
+    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(val){ return val%2 === 0}), [1, 3]);
     done();
   });
   it('.remove- Returns array of values eq to 1', function(done) {
-    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(key, val){ return val !== 1}), [1]);
+    assert.deepEqual(reduxUtils.remove([1, 2, 3, 4], function(val){ return val !== 1}), [1]);
     done();
   });
   it('.remove- Returns empty arry if empty array argument', function(done) {
-    assert.deepEqual(reduxUtils.remove([], function(key, val){ return val !== 1}), []);
+    assert.deepEqual(reduxUtils.remove([], function(val){ return val !== 1}), []);
     done();
   });
   it('.remove- Invalid argument of object returns undefined', function(done) {
-    assert.deepEqual(reduxUtils.remove({a: 1, b: 2, c: 3}, function(key, val){ return val !== 1}), undefined);
+    assert.deepEqual(reduxUtils.remove({a: 1, b: 2, c: 3}, function(val){ return val !== 1}), undefined);
     done();
   });
   it('.remove- Missing function argument returns undefined', function(done) {
     assert.deepEqual(reduxUtils.remove([1, 2, 3]), undefined);
     done();
   });
+	it('.map- Loop through array and return new array with values doubled', function(done) {
+		assert.deepEqual(reduxUtils.map([2, 4, 5], function(value) { return value * 2; }), [4, 8, 10]);
+		done();
+	});
+	it('.map- Invalid argument object returns undefined', function(done) {
+		assert.deepEqual(reduxUtils.map({'a': 2, 'b': 4, 'c': 5}, function(value) { return value; }), undefined);
+		done();
+	});
+	it('.reduce- Reduce Sum Array values', function(done) {
+		assert.deepEqual(reduxUtils.reduce([2, 4, 5], function(acc, value) { return acc + value; }, 0), 11);
+		done();
+	});
+	it('.reduce- Invalid argument object returns undefined', function(done) {
+		assert.deepEqual(reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, value) { return acc + value }, []), undefined);
+		done();
+	});
 });
 
 describe('Object Functions Tests', function() {
@@ -249,15 +265,15 @@ describe('Object Functions Tests', function() {
 
 describe('Object/Array Functions Tests', function() {
 	it('.every-  Every on array return false for not all pass function ', function(done) {
-		assert.deepEqual(reduxUtils.every([2, 4, 5], function(key, value) { return value % 2 == 0; }), false);
+		assert.deepEqual(reduxUtils.every([2, 4, 5], function(value) { return value % 2 == 0; }), false);
 		done();
 	});
 	it('.every-  Every on array return true for all pass function ', function(done) {
-		assert.deepEqual(reduxUtils.every([2, 4, 6], function(key, value) { return value % 2 == 0; }), true);
+		assert.deepEqual(reduxUtils.every([2, 4, 6], function(value) { return value % 2 == 0; }), true);
 		done();
 	});
 	it('.every- Every on array of objects return true for pass function', function(done) {
-		assert.deepEqual(reduxUtils.every([{'user': 1, 'active': true}, {'user': 2, 'active': true}], function(key, value){ return value.active }), true);
+		assert.deepEqual(reduxUtils.every([{'user': 1, 'active': true}, {'user': 2, 'active': true}], function(value){ return value.active }), true);
 		done();
 	});
 	it('.every- Every object return true for pass function', function(done) {
@@ -265,15 +281,15 @@ describe('Object/Array Functions Tests', function() {
 		done();
 	});
 	it('.filter- Returns array values that are divisible by 2', function(done) {
-    assert.deepEqual(reduxUtils.filter([1, 2, 3, 4], function(key, val){ return val%2 === 0}), [2, 4]);
+    assert.deepEqual(reduxUtils.filter([1, 2, 3, 4], function(val){ return val%2 === 0}), [2, 4]);
     done();
   });
   it('.filter- Returns array of values not eq to 1', function(done) {
-    assert.deepEqual(reduxUtils.filter([1, 2, 3, 4], function(key, val){ return val !== 1}), [2, 3, 4]);
+    assert.deepEqual(reduxUtils.filter([1, 2, 3, 4], function(val){ return val !== 1}), [2, 3, 4]);
     done();
   });
   it('.filter- Returns empty arry if empty array argument', function(done) {
-    assert.deepEqual(reduxUtils.filter([], function(key, val){ return val !== 1}), []);
+    assert.deepEqual(reduxUtils.filter([], function(val){ return val !== 1}), []);
     done();
   });
   it('.filter- Returns new object without filtered keys', function(done) {
@@ -284,25 +300,4 @@ describe('Object/Array Functions Tests', function() {
     assert.deepEqual(reduxUtils.filter([1, 2, 3]), undefined);
     done();
   });
-	it('.map- Loop through array and return new array with values doubled', function(done) {
-		assert.deepEqual(reduxUtils.map([2, 4, 5], function(key, value) { return value * 2; }), [4, 8, 10]);
-		done();
-	});
-	it('.map- Loop through object and return array of key value pairs', function(done) {
-		assert.deepEqual(reduxUtils.map({'a': 2, 'b': 4, 'c': 5}, function(key, value) { return [key, value] }), [['a', 2], ['b', 4], ['c', 5]]);
-		done();
-	});
-	it('.reduce- Reduce Sum Array values', function(done) {
-		assert.deepEqual(reduxUtils.reduce([2, 4, 5], function(acc, key, value) { return acc + value; }, 0), 11);
-		done();
-	});
-	it('.reduce- Reduce to array of Object Values', function(done) {
-		assert.deepEqual(reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, key, value) { return acc.concat(value) }, []), [2, 4, 5]);
-		done();
-	});
-	it('.reduce- Reduce Sum Object Values acc value starts at 10', function(done) {
-		assert.deepEqual(reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, key, value) { return acc + value }, 10), 21);
-		done();
-	});
-
 });
