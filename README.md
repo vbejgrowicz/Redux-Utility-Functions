@@ -1,6 +1,15 @@
 # Redux-Utility-Functions
 
-Redux-Utiltity-Functions is a small but feature-rich JavaScript library. It's goal is to simplfify working with arrays and objects in Redux state.
+Redux-Utiltity-Functions is a small but feature-rich JavaScript library that simplifies Redux state updates by providing immutable functions for common changes.
+
+## Getting Started
+  1. Clone this repository.
+  2. Add the Redux-Utility-Functions.js file into the directory of your project.
+  3. Import reduxUtils from the Redux-Utility-Functions.js file.
+
+``
+var reduxUtils = require('./Redux-Utility-Functions.js');
+``
 
 ## Functions
 - Array
