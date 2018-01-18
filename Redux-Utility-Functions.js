@@ -82,11 +82,11 @@
 
   reduxUtils.flatten = function(input) {
     if (input instanceof Array) {
-      var newArray = this.reduce(input, function(previous, current) {
-        if (current instanceof Array) {
-          current = this.flatten(current);
+      var newArray = this.reduce(input, function(acc, key, value) {
+        if (value instanceof Array) {
+          value = this.flatten(value);
         }
-        return previous.concat(current)
+        return acc.concat(value)
       }.bind(this), []);
       return newArray;
     }
@@ -276,7 +276,7 @@
   reduxUtils.reduce = function(input, func, accumulator) {
     if (input instanceof Object && func instanceof Function) {
       this.each(input, function(key, value, object) {
-        accumulator = func(accumulator, value, key);
+        accumulator = func(accumulator, key, value, object);
       });
       return accumulator;
     }
