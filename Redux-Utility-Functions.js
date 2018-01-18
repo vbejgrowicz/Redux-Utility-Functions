@@ -231,7 +231,7 @@
     if (input instanceof Object && func instanceof Function) {
       var result;
       for (var key in input) {
-        result = func(input[key]);
+        result = func(key, input[key], input);
         if (result === false) {
           return result;
         }
