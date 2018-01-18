@@ -13,6 +13,8 @@ Redux-Utiltity-Functions is a small but feature-rich JavaScript library. It's go
   - [.chunk](#chunk)
   - [.flatten](#flatten)
   - [.remove](#remove)
+  - [.map](#map)
+  - [.reduce](#reduce)
 - Object
   - [.keys](#keys)
   - [.values](#values)
@@ -26,8 +28,7 @@ Redux-Utiltity-Functions is a small but feature-rich JavaScript library. It's go
   - [.each](#each)
   - [.every](#every)
   - [.filter](#filter)
-  - [.map](#map)
-  - [.reduce](#reduce)
+
 
 .compact
 ----
@@ -156,19 +157,49 @@ reduxUtils.flatten([1, [2, [3, [4]]]])
 ----
 Creates a new array of values that function returns false for.
 ```
-reduxUtils.remove(array, function(key, value, array))
+reduxUtils.remove(array, function(value, array))
 ```
 #### Example
 ```
-reduxUtils.remove([1, 2, 3, 4, 5, 6], function(key, value) { 
+reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) { 
   return value % 2 === 0
 });
 // [1, 3, 5]
 
-reduxUtils.remove([1, 2, 3, 4, 5, 6], function(key, value) { 
+reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) { 
   return value !== 1
 });
 // [1]
+```
+
+.map
+----
+Loops over elements and runs function on each and returns new array of returned values
+
+```
+reduxUtils.map(array, function(value, array))
+```
+#### Example
+```
+reduxUtils.map([1, 2, 3, 4, 5, 6], function(value) { 
+  return value * 2;
+});
+// [2, 4, 6, 8, 10, 12]
+```
+
+.reduce
+----
+Loops over array and runs function on each element and returns new array
+
+```
+reduxUtils.reduce(array, function(accumulator, value), accumulator)
+```
+#### Example
+```
+reduxUtils.reduce([1, 2, 3], function(accumulator, value) { 
+  return accumulator + value;
+}, 0);
+// 6
 ```
 
 .keys
@@ -203,8 +234,8 @@ reduxUtils.findKey(object, function(key, value, object))
 ```
 #### Example
 ```
-reduxUtils.findKey({ "a": { isActive: true}, "b": { isActive: true} , "c": { isActive: false }}, function(key, value, object) {
-  return val.isActive;
+reduxUtils.findKey({ "a": { isActive: true}, "b": { isActive: true} , "c": { isActive: false }}, function(key, value) {
+  return value.isActive;
 });
 // 'a'
 ```
@@ -232,7 +263,7 @@ reduxUtils.mapKeys(object, function(key, value, object))
 ```
 #### Example
 ```
-reduxUtils.mapKeys({"a": 1, "b": 2}, function(key, value, object) {
+reduxUtils.mapKeys({"a": 1, "b": 2}, function(key, value) {
   return key + value;
 });
 // { 'a1': 1, 'b2': 2}
@@ -246,7 +277,7 @@ reduxUtils.mapValues(object, function(key, value, object))
 ```
 #### Example
 ```
-reduxUtils.mapValues({"a": 1, "b": 2}, function(key, value, object) {
+reduxUtils.mapValues({"a": 1, "b": 2}, function(key, value) {
   return key + value;
 });
 // { 'a': 'a1', 'b': 'b2' }
@@ -280,16 +311,17 @@ reduxUtils.omit({ 'id': 1, 'name': 'User', 'color': 'red'}, ['name']);
 ----
 Loops over elements and runs function on each and returns elements.
 ```
-reduxUtils.each(array/object, function(key, value, array/object))
+reduxUtils.each(array, function(value, array))
+reduxUtils.each(object, function(key, value, object))
 ```
 #### Example
 ```
-reduxUtils.each([1, 2], function(key, value, array) {
+reduxUtils.each([1, 2], function(value) {
   console.log(value);
 });
 // [1, 2]
 
-reduxUtils.each({1: 'a', 2: 'b'}, function(key, value, object) {
+reduxUtils.each({1: 'a', 2: 'b'}, function(key, value) {
   console.log(value);
 });
 // {1: 'a', 2: 'b'}
@@ -299,21 +331,22 @@ reduxUtils.each({1: 'a', 2: 'b'}, function(key, value, object) {
 ----
 Loops over elements and runs function on each and returns true if all elements pass the function.
 ```
-reduxUtils.every(array/object, function(key, value, array/object))
+reduxUtils.every(array, function(value, array))
+reduxUtils.every(object, function(key, value, object))
 ```
 #### Example
 ```
-reduxUtils.every([2, 4, 5], function(key, value, array) {
+reduxUtils.every([2, 4, 5], function(value) {
   return value % 2 === 0;
 });
 // false
 
-reduxUtils.every([{'user': 1, 'active': true}, {'user': 2, 'active': true}], function(key, value, array) {
+reduxUtils.every([{'user': 1, 'active': true}, {'user': 2, 'active': true}], function(value) {
   return value.active;
 });
 // true
 
-reduxUtils.every({ 'user': 1, 'active': true }, function(key, value, object) {
+reduxUtils.every({ 'user': 1, 'active': true }, function(key, value) {
   return value !== null;
 });
 // true
@@ -324,67 +357,23 @@ reduxUtils.every({ 'user': 1, 'active': true }, function(key, value, object) {
 Loops over elements and runs function on each and returns values that function returns true for.
 
 ```
-reduxUtils.filter(array/object, function(key, value, array/object))
+reduxUtils.filter(array, function(value, array))
+reduxUtils.filter(object, function(key, value, object))
 ```
 #### Example
 ```
-reduxUtils.filter({ 'user': 1, 'active': true }, function(key, value, object) {
+reduxUtils.filter({ 'user': 1, 'active': true }, function(key, value) {
   return key !== 'active';
 });
 // {'user': 1 }
 
-reduxUtils.filter([1, 2, 3, 4, 5, 6], function(key, value, array) { 
+reduxUtils.filter([1, 2, 3, 4, 5, 6], function(value) { 
   return value % 2 === 0;
 });
 // [2, 4, 6]
 
-reduxUtils.filter([1, 2, 3, 4, 5, 6], function(key, value, array) { 
+reduxUtils.filter([1, 2, 3, 4, 5, 6], function(value) { 
   return value !== 1;
 });
 // [2, 3, 4, 5, 6]
-```
-
-.map
-----
-Loops over elements and runs function on each and returns new array of returned values
-
-```
-reduxUtils.map(array/object, function(key, value, array/object))
-```
-#### Example
-```
-reduxUtils.map({ 'a': 1, 'b': 2, 'c': 3 }, function(key, value, object) {
-  return [key, value];
-});
-// [['a', 1], ['b', 2], ['c', 3]]
-
-reduxUtils.map([1, 2, 3, 4, 5, 6], function(key, value, array) { 
-  return value * 2;
-});
-// [2, 4, 6, 8, 10, 12]
-```
-
-.reduce
-----
-Loops over elements and runs function on each and returns new array of returned values
-
-```
-reduxUtils.reduce(array/object, function(key, value, array/object), accumulator)
-```
-#### Example
-```
-reduxUtils.reduce([1, 2, 3], function(acc, key, value, array) { 
-  return acc + value;
-}, 0);
-// 6
-
-reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, key, value, object) {
-  return acc + value;
-}, 10);
-// 21
-
-reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, key, value, object) {
-  return acc.concat(value);
-}, []);
-// [2, 4, 5]
 ```
