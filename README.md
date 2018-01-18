@@ -174,7 +174,7 @@ reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) {
 
 .map
 ----
-Loops over elements and runs function on each and returns new array of returned values
+Loops over array and runs function on each element and returns new array
 
 ```
 reduxUtils.map(array, function(value, array))
@@ -189,7 +189,7 @@ reduxUtils.map([1, 2, 3, 4, 5, 6], function(value) {
 
 .reduce
 ----
-Loops over array and runs function on each element and returns new array
+Loops over array and runs function on each element and returns accumulator value
 
 ```
 reduxUtils.reduce(array, function(accumulator, value), accumulator)
