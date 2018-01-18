@@ -22,6 +22,12 @@ Redux-Utiltity-Functions is a small but feature-rich JavaScript library. It's go
   - [.mapValues](#mapvalues)
   - [.pick](#pick)
   - [.omit](#omit)
+- Array/Object
+  - [.each](#each)
+  - [.every](#every)
+  - [.filter](#filter)
+  - [.map](#map)
+  - [.reduce](#reduce)
 
 .compact
 ----
@@ -268,4 +274,117 @@ reduxUtils.omit(object, array)
 ```
 reduxUtils.omit({ 'id': 1, 'name': 'User', 'color': 'red'}, ['name']);
 // { 'id': 1, 'color': 'red' }
+```
+
+.each
+----
+Loops over elements and runs function on each and returns elements.
+```
+reduxUtils.each(array/object, function(key, value, array/object))
+```
+#### Example
+```
+reduxUtils.each([1, 2], function(key, value, array) {
+  console.log(value);
+});
+// [1, 2]
+
+reduxUtils.each({1: 'a', 2: 'b'}, function(key, value, object) {
+  console.log(value);
+});
+// {1: 'a', 2: 'b'}
+```
+
+.every
+----
+Loops over elements and runs function on each and returns true if all elements pass the function.
+```
+reduxUtils.every(array/object, function(key, value, array/object))
+```
+#### Example
+```
+reduxUtils.every([2, 4, 5], function(key, value, array) {
+  return value % 2 === 0;
+});
+// false
+
+reduxUtils.every([{'user': 1, 'active': true}, {'user': 2, 'active': true}], function(key, value, array) {
+  return value.active;
+});
+// true
+
+reduxUtils.every({ 'user': 1, 'active': true }, function(key, value, object) {
+  return value !== null;
+});
+// true
+```
+
+.filter
+----
+Loops over elements and runs function on each and returns values that function returns true for.
+
+```
+reduxUtils.filter(array/object, function(key, value, array/object))
+```
+#### Example
+```
+reduxUtils.filter({ 'user': 1, 'active': true }, function(key, value, object) {
+  return key !== 'active';
+});
+// {'user': 1 }
+
+reduxUtils.filter([1, 2, 3, 4, 5, 6], function(key, value, array) { 
+  return value % 2 === 0;
+});
+// [2, 4, 6]
+
+reduxUtils.filter([1, 2, 3, 4, 5, 6], function(key, value, array) { 
+  return value !== 1;
+});
+// [2, 3, 4, 5, 6]
+```
+
+.map
+----
+Loops over elements and runs function on each and returns new array of returned values
+
+```
+reduxUtils.map(array/object, function(key, value, array/object))
+```
+#### Example
+```
+reduxUtils.map({ 'a': 1, 'b': 2, 'c': 3 }, function(key, value, object) {
+  return [key, value];
+});
+// [['a', 1], ['b', 2], ['c', 3]]
+
+reduxUtils.map([1, 2, 3, 4, 5, 6], function(key, value, array) { 
+  return value * 2;
+});
+// [2, 4, 6, 8, 10, 12]
+```
+
+.reduce
+----
+Loops over elements and runs function on each and returns new array of returned values
+
+```
+reduxUtils.reduce(array/object, function(key, value, array/object), accumulator)
+```
+#### Example
+```
+reduxUtils.reduce([1, 2, 3], function(acc, key, value, array) { 
+  return acc + value;
+}, 0);
+// 6
+
+reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, key, value, object) {
+  return acc + value;
+}, 10);
+// 21
+
+reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, key, value, object) {
+  return acc.concat(value);
+}, []);
+// [2, 4, 5]
 ```
