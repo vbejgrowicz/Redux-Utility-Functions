@@ -154,6 +154,14 @@ describe('Array Functions Tests', function() {
 		assert.deepEqual(reduxUtils.reduce({'a': 2, 'b': 4, 'c': 5}, function(acc, value) { return acc + value }, []), undefined);
 		done();
 	});
+	it('.sort- Returns sorted array values', function(done) {
+		assert.deepEqual(reduxUtils.sort([1, 3, 2]), [1, 2, 3]);
+		done();
+	});
+	it('.sort- Returns reverse sorted array values', function(done) {
+		assert.deepEqual(reduxUtils.sort([1, 3, 2], function(a, b) { return b - a }), [3, 2, 1]);
+		done();
+	});
 });
 
 describe('Object Functions Tests', function() {
