@@ -24,6 +24,7 @@ var reduxUtils = require('./Redux-Utility-Functions.js');
   - [.remove](#remove)
   - [.map](#map)
   - [.reduce](#reduce)
+  - [.sort](#sort)
 - Object
   - [.keys](#keys)
   - [.values](#values)
@@ -131,7 +132,7 @@ reduxUtils.uniq([1, 2, 1])
 reduxUtils.uniq(['a', 'c', 'c', 'a'])
 // ['a', 'c']
 ```
-  
+
 .chunk
 ----
 Creates a new array of elements split into arrays with a size of number given. If not split evenly, last chunk will include remaining elements.
@@ -146,7 +147,7 @@ reduxUtils.chunk([1, 2, 3, 4, 5])
 reduxUtils.chunk([1, 2, 3, 4, 5], 2)
 // [[1, 2], [3, 4], [5]]
 ```
-  
+
 .flatten
 ----
 Creates a new array with elements recursively flattened.
@@ -170,15 +171,32 @@ reduxUtils.remove(array, function(value, array))
 ```
 #### Example
 ```
-reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) { 
+reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) {
   return value % 2 === 0
 });
 // [1, 3, 5]
 
-reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) { 
+reduxUtils.remove([1, 2, 3, 4, 5, 6], function(value) {
   return value !== 1
 });
 // [1]
+```
+
+.sort
+----
+Creates a new array of sorted values
+```
+reduxUtils.sort(array, function(a, b));
+```
+#### Example
+```
+reduxUtils.sort([3, 1, 2]);
+// [1, 2, 3]
+
+reduxUtils.sort([1, 2, 3, 4, 5, 6], function(a, b) {
+  return b - a;
+});
+// [6, 5, 4, 3, 2, 1]
 ```
 
 .map
@@ -190,7 +208,7 @@ reduxUtils.map(array, function(value, array))
 ```
 #### Example
 ```
-reduxUtils.map([1, 2, 3, 4, 5, 6], function(value) { 
+reduxUtils.map([1, 2, 3, 4, 5, 6], function(value) {
   return value * 2;
 });
 // [2, 4, 6, 8, 10, 12]
@@ -205,7 +223,7 @@ reduxUtils.reduce(array, function(accumulator, value), accumulator)
 ```
 #### Example
 ```
-reduxUtils.reduce([1, 2, 3], function(accumulator, value) { 
+reduxUtils.reduce([1, 2, 3], function(accumulator, value) {
   return accumulator + value;
 }, 0);
 // 6
@@ -376,12 +394,12 @@ reduxUtils.filter({ 'user': 1, 'active': true }, function(key, value) {
 });
 // {'user': 1 }
 
-reduxUtils.filter([1, 2, 3, 4, 5, 6], function(value) { 
+reduxUtils.filter([1, 2, 3, 4, 5, 6], function(value) {
   return value % 2 === 0;
 });
 // [2, 4, 6]
 
-reduxUtils.filter([1, 2, 3, 4, 5, 6], function(value) { 
+reduxUtils.filter([1, 2, 3, 4, 5, 6], function(value) {
   return value !== 1;
 });
 // [2, 3, 4, 5, 6]
