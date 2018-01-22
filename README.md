@@ -150,7 +150,7 @@ reduxUtils.chunk([1, 2, 3, 4, 5], 2)
 
 .flatten
 ----
-Creates a new array with elements recursively flattened.
+Creates a new array with elements flattened into single array.
 ```
 reduxUtils.flatten(array)
 ```
