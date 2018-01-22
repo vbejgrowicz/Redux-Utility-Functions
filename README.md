@@ -90,14 +90,14 @@ reduxUtils.take([1, 2, 3, 4, 5], 10)
 
 .min
 ----
-Returns minimum value in array
+Returns minimum value from array
 ```
 reduxUtils.min(array)
 ```
 #### Example
 ```
 reduxUtils.min([1, -1, 2, -5, 4, -3])
-// [-5]
+// -5
 
 reduxUtils.min([])
 // undefined
@@ -105,14 +105,14 @@ reduxUtils.min([])
 
 .max
 ----
-Returns maximum value in array
+Returns maximum value from array
 ```
 reduxUtils.max(array)
 ```
 #### Example
 ```
 reduxUtils.max([1, -1, 2, -5, 4, -3])
-// [4]
+// 4
 
 reduxUtils.max([])
 // undefined
