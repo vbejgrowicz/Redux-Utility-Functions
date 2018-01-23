@@ -2,6 +2,9 @@
 
 Redux-Utiltity-Functions is a small but feature-rich JavaScript library that simplifies Redux state updates by providing immutable functions for common changes.
 
+
+Redux-Utility-Functions can be used for a multitude of React/Redux projects.  One example of its use can be found here on this [Contact List App.](http://www.vivianbejgrowicz.com/Contact-List-App/)
+
 ## Getting Started
   1. Clone this repository.
   2. Add the Redux-Utility-Functions.js file into the directory of your project.
